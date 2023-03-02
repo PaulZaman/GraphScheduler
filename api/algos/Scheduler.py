@@ -92,8 +92,13 @@ class Scheduler:
             print("Vertices: " + str(vertices))
             print("")'''
 
+            # return if there are no more states to delete
+            if len(statesIndexToDelete) == 0:
+                return Steps, True
+
             #add this step to the steps dict
             Steps[j] = {"valueTable": copy.deepcopy(valTable), "deletedSteps": deletedStates, "vertices":vertices}
+
         return Steps, True
 
 

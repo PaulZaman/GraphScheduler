@@ -12,14 +12,11 @@ function Content({ content }) {
           <div className="mx-auto flex ml-32 mr-32">
             {/* CONTENT OF FILE */}
             {content && content.lines && (
-              <TextComponent
-                textArr={content.lines}
-                fileName={content.fileName}
-              />
+              <TextComponent textArr={content.lines} />
             )}
             {/*  ADJENCY MATRIX */}
             <Table
-              title={"'" + content.fileName + "'" + " Adjency Matrix"}
+              title={" Adjency Matrix"}
               dataMatrix={content.adjencyMatrix}
               topRow={Array.from(
                 { length: content.adjencyMatrix.length },

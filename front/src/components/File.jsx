@@ -17,6 +17,7 @@ function File({ filename }) {
         const response = await fetch(API_URL + "files/" + filename);
         const data = await response.json();
         setContent(data);
+        console.log(data);
         setConnected(true);
       } catch (error) {
         console.error(error);
@@ -27,7 +28,11 @@ function File({ filename }) {
 
   return (
     <div className="pb-10 bg-OxforfBlue">
-      <FileHeader setSelected={setSelected} selected={selected} />
+      <FileHeader
+        setSelected={setSelected}
+        selected={selected}
+        filename={filename}
+      />
       <div className="pt-24">
         {connected ? (
           selected === "content" ? (

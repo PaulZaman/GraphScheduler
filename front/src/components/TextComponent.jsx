@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function TextComponent({ textArr, fileName }) {
+function TextComponent({ textArr }) {
   const [text, setText] = useState(textArr.join("\n"));
 
   const handleTextChange = (event) => {
@@ -15,7 +15,7 @@ function TextComponent({ textArr, fileName }) {
     <>
       <div className="flex flex-col justify-center items-center w-full h-auto bg-OxforfBlue mr-10">
         <div className="text-BatteryChargedBlue font-bold text-lg mt-16 mb-4 text-center">
-          <a>Content of file {fileName}</a>
+          <a>Content of file</a>
         </div>
         <div className="w-full flex justify-center items-center h-auto bg-OxforfBlue">
           <div className="bg-white w-full rounded-lg p-4 shadow-md">
