@@ -7,12 +7,6 @@ function App() {
   const [openedFile, setOpenedFile] = useState(null);
   const [popupisOpen, setPopupisOpen] = useState(false);
 
-  useEffect(() => {
-    if (openedFile) {
-      console.log(openedFile);
-    }
-  }, [openedFile]);
-
   return (
     <div className="App">
       <Header

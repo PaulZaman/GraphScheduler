@@ -7,7 +7,6 @@ function FileListPopup({ setPopupisOpen, setOpenedFile }) {
 
   useEffect(() => {
     if (files.length === 0) {
-      console.log("No files found");
       setConnected(false);
     } else {
       setConnected(true);
