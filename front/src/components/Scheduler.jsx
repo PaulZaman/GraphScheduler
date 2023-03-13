@@ -9,7 +9,7 @@ function Scheduler({ content }) {
       {!scheduled ? (
         <SchedulerTests content={content} setScheduled={setScheduled} />
       ) : (
-        <Scheduled setScheduled={setScheduled} />
+        <Scheduled content={content} setScheduled={setScheduled} />
       )}
     </div>
   );

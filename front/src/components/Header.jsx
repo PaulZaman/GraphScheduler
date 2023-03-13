@@ -10,13 +10,12 @@ function Header({ setOpenedFile, popupisOpen, setPopupisOpen }) {
 
   return (
     <div>
-      <div className="flex items-center justify-between bg-gradient-to-r from-EgyptianBlue to-BatteryChargedBlue h-16 px-4 fixed w-full ">
-        <div className="flex items-center">
+      <div className="flex items-center justify-between bg-gradient-to-r from-EgyptianBlue to-BatteryChargedBlue h-16 px-4 fixed w-full z-1">
+        <div className="flex items-center" onClick={handleImageClick}>
           <img
             src={OpenImage}
             alt="open"
             className="h-8 mr-4 cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
-            onClick={handleImageClick}
           />
           <h1 className="text-xl font-medium text-white cursor-pointer hover:underline transition duration-300 ease-in-out">
             Open new file
@@ -25,18 +24,14 @@ function Header({ setOpenedFile, popupisOpen, setPopupisOpen }) {
         <h1 className="text-3xl font-bold text-white text-center mr-20">
           Graph Scheduler
         </h1>
-        <div className="flex items-center">
-          <h1
-            className="text-xl font-medium text-white mr-4 cursor-pointer hover:underline transition duration-300 ease-in-out"
-            onClick={() => setOpenedFile(null)}
-          >
+        <div className="flex items-center" onClick={() => setOpenedFile(null)}>
+          <h1 className="text-xl font-medium text-white mr-4 cursor-pointer hover:underline transition duration-300 ease-in-out">
             Home
           </h1>
           <img
             src={Home}
             alt="open"
             className="h-8 cursor-pointer hover:scale-110 transition duration-300 ease-in-out"
-            onClick={() => setOpenedFile(null)}
           />
         </div>
       </div>

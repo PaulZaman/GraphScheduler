@@ -41,11 +41,16 @@ def getFile(name):
             "edges":g.edgesGraph,
             "lines":g.lines,
             "negativeEdges": g.containsNegativeEdges,
+            "ranks": g.scheduler.ranks,
+            "criticalPath": g.scheduler.criticalPath,
+            "earliestDates": g.scheduler.earliestDates,
+            "latestDates": g.scheduler.latestDates,
+            "floats": g.scheduler.floats,
         }
 
         return jsonify(SEND)
     except Exception as e:
-        return jsonify({'error': str(e)})
+        return jsonify({'API Error ': str(e)})
 
 if __name__ == '__main__':
     app.run(debug=True)

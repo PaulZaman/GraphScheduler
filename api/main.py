@@ -1,8 +1,5 @@
 from settings import *
 from Graph import Graph
 
-g = Graph("table9.txt")
+g = Graph("TestCours.txt")
 
-
-
-print(g.scheduler.cycleCheckSteps)

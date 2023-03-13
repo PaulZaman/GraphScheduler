@@ -10,7 +10,6 @@ for file in os.listdir(os.path.join(PRJ_DIR, "Graphs")):
     if file.endswith(".txt"):
         n_Files += 1
         try:
-            print("file: ", file)
             g = Graph(file)
             print("File: ", file, " test completed")
         except Exception as e:

@@ -32,7 +32,7 @@ function Table({ title, dataMatrix, topRow, leftCol }) {
               <div key={j}>
                 <div
                   className={`p-2 border border-BatteryChargedBlue w-12 text-center ${
-                    cell === "1" ? "text-white" : "text-black"
+                    cell === "*" ? "text-black" : "text-white"
                   }`}
                 >
                   {cell}

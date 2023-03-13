@@ -17,7 +17,6 @@ function File({ filename }) {
         const response = await fetch(API_URL + "files/" + filename);
         const data = await response.json();
         setContent(data);
-        //console.log(data);
         setConnected(true);
       } catch (error) {
         console.error(error);

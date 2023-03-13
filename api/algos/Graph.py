@@ -1,11 +1,6 @@
 from settings import PRJ_DIR
 from Scheduler import Scheduler
 
-def displayIterableInTerminal(iterable):
-    for item in iterable:
-        print(item)
-
-
 class Graph:
     def __init__(self, file):
         self.file = PRJ_DIR + "/graphs/" + file
@@ -61,8 +56,16 @@ class Graph:
         # create a matrix of size len(constraintTable) x len(constraintTable) filling it with '*'
         valueTable = [["*" for x in range(len(self.constraintTable))] for y in range(len(self.constraintTable))]
         for line in self.edgesGraph:
-            valueTable[int(line["from"])][int(line["to"])] = str(1)
+            valueTable[int(line["from"])][int(line["to"])] = str(self.getDurationOfVertice(line["from"]))
         return valueTable
+
+    def getDurationOfVertice(self, vertex):
+        if type(vertex) == int:
+            vertex = str(vertex)
+        for line in self.constraintTable:
+            if (line["vertice"] == vertex):
+                return line["duration"]
+        return False
 
     def checkForNegativeEdges(self):
         """
@@ -74,9 +77,9 @@ class Graph:
                 return True
         return False
 
-    def findDurationOfVertice(self, vertice):
+    def findDurationOfVertice(self, vertex):
         for line in self.constraintTable:
-            if (line["vertice"] == vertice):
+            if (line["vertice"] == vertex):
                 return line["duration"]
         return False
 
@@ -96,4 +99,3 @@ class Graph:
         graph = sorted(graph, key=lambda k: k["from"])
 
         return graph
-

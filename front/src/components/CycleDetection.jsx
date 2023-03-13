@@ -1,4 +1,5 @@
-import Table from "./Table";
+import Table from "./DoubleEntryTable";
+
 function CycleDetection({ cycledetectionsteps }) {
   return (
     <div className="flex justify-center flex-wrap p-1">

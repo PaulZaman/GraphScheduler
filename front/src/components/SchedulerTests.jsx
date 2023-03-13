@@ -1,4 +1,4 @@
-import BasicTable from "./BasicTable";
+import BasicTable from "./SingleEntryTable";
 import CycleDetection from "./CycleDetection";
 import crossImg from "../assets/cancel.png";
 import checkedImg from "../assets/checked.png";
@@ -27,7 +27,21 @@ function SchedulerTests({ content, setScheduled }) {
           )}
         </li>
       </ul>
-      <div className="mt-8">
+      <div
+        className={`cursor-pointer z-0 rounded p-2 w-40 text-center bg-2 mt-10 ${
+          !content.negativeEdges && !content.containsCycles
+            ? "scale-animation"
+            : "opacity-50"
+        } `}
+        onClick={() => {
+          if (!content.negativeEdges && !content.containsCycles) {
+            setScheduled(true);
+          }
+        }}
+      >
+        Schedule Graph
+      </div>
+      <div className="">
         <h1 className="text-3xl font-semibold mt-10 m-auto text-center">
           Negative Edges Check
         </h1>
@@ -68,18 +82,6 @@ function SchedulerTests({ content, setScheduled }) {
             contains cycles.
           </p>
         )}
-      </div>
-      <div
-        className={`absolute top-64 rounded p-2 w-40 text-center right-10 bg-2 ${
-          !content.negativeEdges && !content.containsCycles ? "" : "opacity-50"
-        } `}
-        onClick={() => {
-          if (!content.negativeEdges && !content.containsCycles) {
-            setScheduled(true);
-          }
-        }}
-      >
-        Schedule Graph
       </div>
     </>
   );
