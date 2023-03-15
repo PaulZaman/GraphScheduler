@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SchedulerTests from "./SchedulerTests";
+import SchedulerTests from "../File/SchedulerTests";
 import Scheduled from "./Scheduled";
 
 function Scheduler({ content }) {

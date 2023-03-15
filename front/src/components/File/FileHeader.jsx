@@ -1,5 +1,5 @@
-import textLogo from "../assets/text-format.png";
-import scheduleLogo from "../assets/calendar.png";
+import textLogo from "../../assets/text-format.png";
+import scheduleLogo from "../../assets/calendar.png";
 
 function FileHeader({ setSelected, selected, filename }) {
   const scheduleButtonStyle = `flex items-center p-3 pr-10 pl-10 hover:bg-LighterEgyptianBlue rounded-br-full bg-${

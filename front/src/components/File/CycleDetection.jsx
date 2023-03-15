@@ -1,4 +1,4 @@
-import Table from "./DoubleEntryTable";
+import Table from "../Tables/DoubleEntryTable";
 
 function CycleDetection({ cycledetectionsteps }) {
   return (

@@ -1,10 +1,10 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { API_URL } from "../config";
+import { API_URL } from "../../config";
 
 import FileHeader from "./FileHeader";
 import Content from "./Content";
-import Scheduler from "./Scheduler";
+import Scheduler from "../File/Scheduler";
 
 function File({ filename }) {
   const [content, setContent] = useState();
@@ -16,6 +16,7 @@ function File({ filename }) {
       try {
         const response = await fetch(API_URL + "files/" + filename);
         const data = await response.json();
+        console.log(data);
         setContent(data);
         setConnected(true);
       } catch (error) {

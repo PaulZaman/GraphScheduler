@@ -1,6 +1,6 @@
 import Graph from "./Graph";
-import ScheduleTable from "./ScheduleTable";
-import BasicTable from "./SingleEntryTable";
+import ScheduleTable from "../Tables/ScheduleTable";
+import BasicTable from "../Tables/SingleEntryTable";
 
 function Scheduled({ setScheduled, content }) {
   console.log(content);

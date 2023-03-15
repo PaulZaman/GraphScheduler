@@ -2,24 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2ce2d440-f524-4723-9bfb-5e4b81d1ad09" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/graphs/TestCours.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graphs/test.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestValidityOfTxtFiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/TestValidityOfTxtFiles.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/algos/Graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/algos/Graph.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/algos/Scheduler.py" beforeDir="false" afterPath="$PROJECT_DIR$/algos/Scheduler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/src/components/BasicTable.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/src/components/Content.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/Content.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/src/components/CycleDetection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/CycleDetection.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front/src/components/DoubleEntryTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/DoubleEntryTable.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front/src/components/File.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/File.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front/src/components/Graph.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/Graph.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/src/components/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/Header.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front/src/components/Scheduled.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/Scheduled.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/src/components/Scheduler.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/Scheduler.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/src/components/SchedulerTests.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/SchedulerTests.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/src/components/Table.jsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,8 +172,8 @@
       <list>
         <item itemvalue="Flask server.Flask (api.py)" />
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.TestValidityOfTxtFiles" />
         <item itemvalue="Python.Scheduler" />
+        <item itemvalue="Python.TestValidityOfTxtFiles" />
       </list>
     </recent_temporary>
   </component>
@@ -205,7 +196,10 @@
       <workItem from="1678380323976" duration="2291000" />
       <workItem from="1678539973050" duration="8176000" />
       <workItem from="1678661821022" duration="602000" />
-      <workItem from="1678714993422" duration="2704000" />
+      <workItem from="1678714993422" duration="3098000" />
+      <workItem from="1678730916307" duration="4650000" />
+      <workItem from="1678750762222" duration="1967000" />
+      <workItem from="1678798702918" duration="379000" />
     </task>
     <servers />
   </component>
@@ -224,10 +218,10 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/api$main.coverage" NAME="main Coverage Results" MODIFIED="1678717251356" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/api$Scheduler.coverage" NAME="Scheduler Coverage Results" MODIFIED="1678542262122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algos" />
+    <SUITE FILE_PATH="coverage/api$main.coverage" NAME="main Coverage Results" MODIFIED="1678752372262" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/api$Scheduler.coverage" NAME="Scheduler Coverage Results" MODIFIED="1678734425287" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algos" />
     <SUITE FILE_PATH="coverage/api$TestValidityOfTxtFiles.coverage" NAME="TestValidityOfTxtFiles Coverage Results" MODIFIED="1678549846929" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/api$Flask__api_py_.coverage" NAME="Flask (api.py) Coverage Results" MODIFIED="1678717585968" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/api$Flask__api_py_.coverage" NAME="Flask (api.py) Coverage Results" MODIFIED="1678798705555" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/api$api.coverage" NAME="api Coverage Results" MODIFIED="1677772492984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

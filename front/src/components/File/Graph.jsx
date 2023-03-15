@@ -143,7 +143,6 @@ function createLinks(svg, links, criticalPathEdges) {
       return "url(#arrowhead-red)";
     })
     .attr("stroke", (d) => {
-      console.log(d);
       for (let i = 0; i < criticalPathEdges.length; i++) {
         if (
           d.source.id.toString() === criticalPathEdges[i].from.toString() &&
@@ -254,8 +253,6 @@ function dragEnd(event, d, simulation) {
   if (!event.active) simulation.alphaTarget(0);
   d.fx = null;
   d.fy = null;
-
-  console.log("drag end");
 }
 
 export default Graph;

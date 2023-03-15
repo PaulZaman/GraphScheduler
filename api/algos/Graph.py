@@ -77,12 +77,6 @@ class Graph:
                 return True
         return False
 
-    def findDurationOfVertice(self, vertex):
-        for line in self.constraintTable:
-            if (line["vertice"] == vertex):
-                return line["duration"]
-        return False
-
     def getEdges(self):
         """
         Gets the  Graph from the constraint table
@@ -93,9 +87,38 @@ class Graph:
         # add the vertice link to the scheduling graph
         for line in self.constraintTable:
             for constraint in line["constraints"]:
-                graph.append({"from":constraint, "to":line["vertice"], "weight":self.findDurationOfVertice(constraint)})
+                graph.append({"from":constraint, "to":line["vertice"], "weight":self.getDurationOfVertice(constraint)})
 
         # order the graph in the order of the from vertice, starting with 0
         graph = sorted(graph, key=lambda k: k["from"])
 
         return graph
+
+    def getSuccessors(self, vertice, valTable=None):
+        """
+        Gets the successors of a vertice using the value table
+        :param vertice: the vertice
+        :return: list of successors
+        """
+        if valTable is None:
+            valTable = self.adjencyMatrix
+        successors = []
+        for i in range(len(valTable[int(vertice)])):
+            if valTable[int(vertice)][i] != "*":
+                successors.append(i)
+
+        return successors
+
+    def getPredecessors(self, vertice, valTable=None):
+        """
+        Gets the predecessors of a vertice
+        :param vertice: the vertice
+        :return: list of predecessors
+        """
+        if valTable is None:
+            valTable = self.adjencyMatrix
+        predecessors = []
+        for i in range(len(valTable)):
+            if valTable[i][int(vertice)] != "*":
+                predecessors.append(i)
+        return predecessors

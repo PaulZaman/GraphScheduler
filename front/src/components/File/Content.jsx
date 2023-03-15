@@ -1,6 +1,6 @@
-import Table from "./DoubleEntryTable";
+import Table from "../Tables/DoubleEntryTable";
 import TextComponent from "./TextComponent";
-import BasicTable from "./SingleEntryTable";
+import BasicTable from "../Tables/SingleEntryTable";
 import Graph from "./Graph";
 
 function Content({ content }) {

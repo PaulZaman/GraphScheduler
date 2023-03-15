@@ -1,7 +1,7 @@
-import BasicTable from "./SingleEntryTable";
+import BasicTable from "../Tables/SingleEntryTable";
 import CycleDetection from "./CycleDetection";
-import crossImg from "../assets/cancel.png";
-import checkedImg from "../assets/checked.png";
+import crossImg from "../../assets/cancel.png";
+import checkedImg from "../../assets/checked.png";
 
 function SchedulerTests({ content, setScheduled }) {
   return (

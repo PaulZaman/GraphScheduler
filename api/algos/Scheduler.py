@@ -19,30 +19,6 @@ class Scheduler:
             self.earliestDates, self.latestDates, self.floats, self.criticalPath = self.getSchedule()
 
 
-    def stateAdmitsSucessors(self, valTable, stateN):
-        """
-        Checks if the state admits sucessors
-        :param valTable: value table to check
-        :param stateN: state index to check
-        :return: bool
-        """
-        for el in valTable[stateN]:
-            if el != "*":
-                return True
-        return False
-
-    def stateAdmitsPredecessors(self, valTable, stateN):
-        """
-        Checks if the state admits predecessors
-        :param valTable: value table to check
-        :param stateN: state index to check
-        :return: bool
-        """
-        for line in valTable:
-            if line[stateN] != "*":
-                return True
-        return False
-
     def removeStateFromMatrix(self, m, stateN):
         """
         Removes a state from the value table (line + column)
@@ -55,30 +31,6 @@ class Scheduler:
         for line in m1:
             line.pop(stateN)
         return m1
-
-    def getSuccesors(self, stateN):
-        """
-        Gets the succesors of a state
-        :param stateN: state index
-        :return: list of succesors
-        """
-        succ = []
-        for i in range(len(self.adjencyMatrix[stateN])):
-            if self.adjencyMatrix[stateN][i] != "*":
-                succ.append(i)
-        return succ
-
-    def getPredecessors(self, stateN):
-        """
-        Gets the predecessors of a state
-        :param stateN: state index
-        :return: list of predecessors
-        """
-        pred = []
-        for i in range(len(self.adjencyMatrix)):
-            if self.adjencyMatrix[i][stateN] != "*":
-                pred.append(i)
-        return pred
 
     def detectCycle(self):
         """
@@ -143,10 +95,10 @@ class Scheduler:
         statesIndexToDelete = []
         for i in range(len(valTable)):
             # if the state has no predecessors
-            if not self.stateAdmitsPredecessors(valTable, i):
+            if len(self.graph.getPredecessors(i, valTable=valTable))==0:
                 statesIndexToDelete.append(i)
             # if the state has no sucessors
-            elif not self.stateAdmitsSucessors(valTable, i):
+            elif len(self.graph.getSuccessors(i, valTable=valTable))==0:
                 statesIndexToDelete.append(i)
 
         # order the states to delete in reverse order
@@ -163,7 +115,6 @@ class Scheduler:
         # initialize the ranks list
         ranks = [0 for i in range(len(self.adjencyMatrix))]
 
-        time = 0
         position = [
             (0, 0), # (statenumber, timeEnteredAtThisState)
         ]
@@ -172,12 +123,12 @@ class Scheduler:
             # get the state number and the time entered at this state
             stateNumber, timeEnteredAtThisState = position.pop(0)
             # if the state has no predecessors, then it has a rank of 0
-            if len(self.getPredecessors(stateNumber)) == 0:
+            if len(self.graph.getPredecessors(stateNumber)) == 0:
                 ranks[stateNumber] = 0
             # if the state has predecessors
             else:
                 # get the maximum rank of the predecessors
-                maxRank = max([ranks[pred] for pred in self.getPredecessors(stateNumber)])
+                maxRank = max([ranks[pred] for pred in self.graph.getPredecessors(stateNumber)])
                 # if the maximum rank is equal to the time entered at this state, then the state has a rank of maxRank + 1
                 if maxRank == timeEnteredAtThisState:
                     ranks[stateNumber] = maxRank + 1
@@ -185,7 +136,7 @@ class Scheduler:
                 else:
                     ranks[stateNumber] = maxRank
             # add the successors of the state to the position list
-            for succ in self.getSuccesors(stateNumber):
+            for succ in self.graph.getSuccessors(stateNumber):
                 position.append((succ, ranks[stateNumber]))
 
         ret = []
@@ -215,8 +166,8 @@ class Scheduler:
             ranks.append(rank["rank"])
             vertices.append(rank["vertice"])
             durations.append(int(self.graph.getDurationOfVertice(rank["vertice"])))
-            predecessors.append(self.getPredecessors(rank["vertice"]))
-            successors.append(self.getSuccesors(rank["vertice"]))
+            predecessors.append(self.graph.getPredecessors(rank["vertice"]))
+            successors.append(self.graph.getSuccessors(rank["vertice"]))
             datesPerPredecessor.append([])
             datesPerSuccessor.append([])
 
@@ -330,3 +281,103 @@ class Scheduler:
         print(criticalPath)"""
 
         return earliestDatesDict, latestDatesDict, floats, criticalPath
+
+    def displayArrayOfDicts(self, array):
+        import prettytable as pt
+        table = pt.PrettyTable()
+        headers = array[0].keys()
+        table.field_names = headers
+        for i in range(len(array)):
+            row = []
+            for header in headers:
+                row.append(array[i][header])
+            table.add_row(row)
+
+        print(table)
+
+    def findPath(self, start, end, path=None):
+        if path is None:
+            path = []  # initialize path on first call
+
+        path.append(start)  # add current vertex to path
+
+        if start == end:
+            return path  # return path if end vertex is found
+
+        if self.graph.getSuccessors(start) == []:
+            path.pop()
+            return None  # return None if no path exists
+
+        for successor in self.graph.getSuccessors(start):
+
+            subpath = self.pathExists(successor, end, path)
+            if subpath is not None:
+                return subpath  # return subpath if end vertex is found
+
+        path.pop()  # remove current vertex from path if no path found
+        return None
+
+    def findAllPaths(self, start, end, path=None, paths=None):
+        if path is None:
+            path = []  # initialize path on first call
+        if paths is None:
+            paths = []  # initialize paths on first call
+
+        path.append(start)  # add current vertex to path
+
+        if start == end:
+            paths.append(path.copy())  # copy current path and add to paths list
+        else:
+            if self.graph.getSuccessors(start) == []:
+                path.pop()
+                return None  # return None if no path exists
+            else:
+                for successor in self.graph.getSuccessors(start):
+                    self.findAllPaths(successor, end, path, paths)
+
+        path.pop()  # remove current vertex from path
+        return paths
+
+    def findDurationOfPath(self, path):
+        duration = 0
+        for i in range(len(path)):
+            if i != len(path) - 1:
+                duration += int(self.graph.getDurationOfVertice(path[i]))
+        return duration
+
+    def findMinimumDurationPath(self, start, end):
+        minDurationIndex = 0
+        paths = self.findAllPaths(start, end)
+        if (paths == None):
+            return None
+        for path in paths:
+            duration = self.findDurationOfPath(path)
+            if duration < self.findDurationOfPath(paths[minDurationIndex]):
+                minDurationIndex = paths.index(path)
+
+        return paths[minDurationIndex]
+
+    def deleteLastEdgeInPath(self, path, edges):
+        # remove last edge in path p
+        v1 = path[len(path) - 2]
+        v2 = path[len(path) - 1]
+        for edge in edges:
+            if edge["from"] == v1 and edge["to"] == v2:
+                edges.remove(edge)
+                break
+
+    def optimize(self):
+        edgesGraph = copy.deepcopy(self.graph.edgesGraph)
+        finished = False
+        while not finished:
+            for v1 in range(len(self.graph.constraintTable)):
+                finished = True
+                for v2 in range(len(self.graph.constraintTable)):
+                    paths = self.findAllPaths(str(v1), str(v2))
+                    if paths and len(paths)>1:
+                        p = self.findMinimumDurationPath(str(v1), str(v2))
+                        # remove last edge in path p
+                        self.deleteLastEdgeInPath(p, edgesGraph)
+                        finished = False
+
+        return edgesGraph
