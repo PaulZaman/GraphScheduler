@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2ce2d440-f524-4723-9bfb-5e4b81d1ad09" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/algos/Graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/algos/Graph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/algos/Scheduler.py" beforeDir="false" afterPath="$PROJECT_DIR$/algos/Scheduler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/src/components/DoubleEntryTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/DoubleEntryTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/src/components/File.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/File.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/src/components/Graph.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/Graph.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front/src/components/Scheduled.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../front/src/components/Scheduled.jsx" afterDir="false" />
-    </list>
+    <list default="true" id="2ce2d440-f524-4723-9bfb-5e4b81d1ad09" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -200,6 +190,7 @@
       <workItem from="1678730916307" duration="4650000" />
       <workItem from="1678750762222" duration="1967000" />
       <workItem from="1678798702918" duration="379000" />
+      <workItem from="1678878140283" duration="387000" />
     </task>
     <servers />
   </component>
@@ -221,7 +212,7 @@
     <SUITE FILE_PATH="coverage/api$main.coverage" NAME="main Coverage Results" MODIFIED="1678752372262" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/api$Scheduler.coverage" NAME="Scheduler Coverage Results" MODIFIED="1678734425287" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/algos" />
     <SUITE FILE_PATH="coverage/api$TestValidityOfTxtFiles.coverage" NAME="TestValidityOfTxtFiles Coverage Results" MODIFIED="1678549846929" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/api$Flask__api_py_.coverage" NAME="Flask (api.py) Coverage Results" MODIFIED="1678798705555" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/api$Flask__api_py_.coverage" NAME="Flask (api.py) Coverage Results" MODIFIED="1678878315732" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/api$api.coverage" NAME="api Coverage Results" MODIFIED="1677772492984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
