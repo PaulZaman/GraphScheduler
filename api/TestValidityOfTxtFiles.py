@@ -1,4 +1,3 @@
-# import graph class
 from settings import *
 from Graph import Graph
 ## In this part of the project, we test run all the files in the Graphs folder
@@ -17,6 +16,7 @@ for file in os.listdir(os.path.join(PRJ_DIR, "Graphs")):
             print(e)
             n_Failed += 1
 
+# print the results
 print("")
 print("Number of files tested: ", n_Files)
 print("Number of files failed: ", n_Failed)

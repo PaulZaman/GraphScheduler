@@ -1,9 +1,3 @@
-# Settings files for the project
-
-# Contains imports, and global variables
-
-
-
 # Imports
 import os, sys
 

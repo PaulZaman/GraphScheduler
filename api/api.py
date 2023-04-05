@@ -1,12 +1,19 @@
+## This file contains the API for the project
+
+
+
+# import modules
 from flask import Flask, jsonify
 from flask_cors import CORS
 from settings import PRJ_DIR
 from Graph import Graph
 import os
 
+# create the Flask app
 app = Flask(__name__)
 CORS(app)
 
+# get all the files in the directory
 @app.route('/files', methods=['GET'])
 def getFiles():
     # iterate through the files in the directory
@@ -38,7 +45,7 @@ def getFile(name):
             "adjencyMatrix":g.adjencyMatrix,
             "containsCycles":g.scheduler.containsCycles,
             "cycleDetectionSteps":g.scheduler.cycleCheckSteps,
-            "edges":g.edgesGraph,
+            "edges":g.edges,
             "lines":g.lines,
             "negativeEdges": g.containsNegativeEdges,
             "ranks": g.scheduler.ranks,
@@ -46,6 +53,7 @@ def getFile(name):
             "earliestDates": g.scheduler.earliestDates,
             "latestDates": g.scheduler.latestDates,
             "floats": g.scheduler.floats,
+            
         }
 
         return jsonify(SEND)

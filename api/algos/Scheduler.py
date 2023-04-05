@@ -17,7 +17,7 @@ class Scheduler:
         if self.canBeScheduled:
             self.ranks = self.getRanks()
             self.earliestDates, self.latestDates, self.floats, self.criticalPath = self.getSchedule()
-
+            #self.bellman('0')
 
     def removeStateFromMatrix(self, m, stateN):
         """
@@ -116,7 +116,7 @@ class Scheduler:
         ranks = [0 for i in range(len(self.adjencyMatrix))]
 
         position = [
-            (0, 0), # (statenumber, timeEnteredAtThisState)
+            (0, 0),  # (statenumber, timeEnteredAtThisState)
         ]
         # loop until all states have a rank
         while len(position) != 0:
@@ -158,6 +158,7 @@ class Scheduler:
         earliestDates = []
         latestDates = []
         totalFloats = []
+        freeFloats = []
 
         # fill the ranks, vertices, durations, predecessors and successors lists
         ranksDict = self.getRanks()
@@ -186,9 +187,8 @@ class Scheduler:
         for i in range(len(vertices)):
             earliestDates.append(max(datesPerPredecessor[i]))
 
-
         # fill the datesPerSuccessor list
-        datesPerSuccessor[len(vertices)-1] = [min(datesPerPredecessor[len(vertices)-1])]
+        datesPerSuccessor[len(vertices)-1] = [max(datesPerPredecessor[len(vertices)-1])]
         for i in range(len(vertices)-1, -1, -1):
             for succ in successors[i]:
                 date = min(datesPerSuccessor[vertices.index(succ)]) - durations[i]
@@ -201,6 +201,20 @@ class Scheduler:
         # fill the totalFloats list
         for i in range(len(vertices)):
             totalFloats.append(latestDates[i] - earliestDates[i])
+        
+        # fill the freeFloats list
+        for i in range(len(vertices)):
+            # if the vertice has no successors, then the free float is 0
+            if len(successors[i]) == 0:
+                freeFloats.append(0)
+            else:
+                ## get successors
+                succs = successors[i]
+                ## get the earliest date of the successors
+                earliestDateOfSuccs = min([earliestDates[vertices.index(succ)] for succ in succs])
+                freeFloats.append(earliestDateOfSuccs - earliestDates[i])
+
+
 
         latestDatesDict = {
             "headers": ["Ranks", "Vertices", "Durations", "Successors", "Dates of Successors", "Latest Dates"],
@@ -223,13 +237,14 @@ class Scheduler:
         }
 
         floats = {
-            "headers": ["Ranks", "Vertices", "Durations", "Earliest Dates", "Latest Dates", "Total Floats"],
+            "headers": ["Ranks", "Vertices", "Durations", "Earliest Dates", "Latest Dates", "Total Floats", "Free Floats"],
             "Ranks" : ranks,
             "Vertices" : vertices,
             "Durations" : durations,
             "Earliest Dates" : earliestDates,
             "Latest Dates" : latestDates,
-            "Total Floats" : totalFloats
+            "Total Floats" : totalFloats,
+            "Free Floats" : freeFloats
         }
 
         # add "-" to the succesors and predecessors lists if they are empty
@@ -295,89 +310,58 @@ class Scheduler:
 
         print(table)
 
-    def findPath(self, start, end, path=None):
-        if path is None:
-            path = []  # initialize path on first call
+    def bellman(self, verticeA):
+        """
+        This function implements the Bellman-Ford algorithm to find the shortest path from a vertice to all other vertices.
+        :param verticeA: the vertice from which the shortest path is calculated
+        :return: a matrix with the shortest path from verticeA to all other vertices
+        """
+        bellman_columns = ['k'] + [str(vertice) for vertice in self.graph.getVertices()]
 
-        path.append(start)  # add current vertex to path
-
-        if start == end:
-            return path  # return path if end vertex is found
-
-        if self.graph.getSuccessors(start) == []:
-            path.pop()
-            return None  # return None if no path exists
-
-        for successor in self.graph.getSuccessors(start):
-
-            subpath = self.pathExists(successor, end, path)
-            if subpath is not None:
-                return subpath  # return subpath if end vertex is found
-
-        path.pop()  # remove current vertex from path if no path found
-        return None
-
-    def findAllPaths(self, start, end, path=None, paths=None):
-        if path is None:
-            path = []  # initialize path on first call
-        if paths is None:
-            paths = []  # initialize paths on first call
-
-        path.append(start)  # add current vertex to path
-
-        if start == end:
-            paths.append(path.copy())  # copy current path and add to paths list
-        else:
-            if self.graph.getSuccessors(start) == []:
-                path.pop()
-                return None  # return None if no path exists
+        # first iteration
+        bellman = []
+        initial_row = [0]
+        for vertice in self.graph.getVertices():
+            if vertice == verticeA:
+                initial_row.append(0)
             else:
-                for successor in self.graph.getSuccessors(start):
-                    self.findAllPaths(successor, end, path, paths)
+                initial_row.append(float('inf'))
+        bellman.append(initial_row)
+        verticestoCheck = [verticeA]
 
-        path.pop()  # remove current vertex from path
-        return paths
 
-    def findDurationOfPath(self, path):
-        duration = 0
-        for i in range(len(path)):
-            if i != len(path) - 1:
-                duration += int(self.graph.getDurationOfVertice(path[i]))
-        return duration
+        cpt: int = 0
+        while  not(len(verticestoCheck) == 0):
+            # new iteration, augment k by 1
+            bellman.append(copy.deepcopy(bellman[cpt]))
+            cpt += 1
+            bellman[cpt][0] = cpt
+            for v in verticestoCheck:
+                successors = self.graph.getSuccessors(v)
+                for successor in successors:
+                    index = bellman_columns.index(str(successor))
+                    weight = self.graph.getWeight(v, successor)
+                    bellman[cpt][index] = min(bellman[cpt][index], bellman[cpt-1][bellman_columns.index(str(v))] + weight)
 
-    def findMinimumDurationPath(self, start, end):
-        minDurationIndex = 0
-        paths = self.findAllPaths(start, end)
-        if (paths == None):
-            return None
-        for path in paths:
-            duration = self.findDurationOfPath(path)
-            if duration < self.findDurationOfPath(paths[minDurationIndex]):
-                minDurationIndex = paths.index(path)
+            # update the verticestoCheck list
+            verticestoCheck = []
+            for i in range(1, len(bellman[cpt])):
+                if bellman[cpt][i] != bellman[cpt-1][i]:
+                    verticestoCheck.append(bellman_columns[i])
 
-        return paths[minDurationIndex]
 
-    def deleteLastEdgeInPath(self, path, edges):
-        # remove last edge in path p
-        v1 = path[len(path) - 2]
-        v2 = path[len(path) - 1]
-        for edge in edges:
-            if edge["from"] == v1 and edge["to"] == v2:
-                edges.remove(edge)
-                break
+        from prettytable import PrettyTable
 
-    def optimize(self):
-        edgesGraph = copy.deepcopy(self.graph.edgesGraph)
-        finished = False
-        while not finished:
-            for v1 in range(len(self.graph.constraintTable)):
-                finished = True
-                for v2 in range(len(self.graph.constraintTable)):
-                    paths = self.findAllPaths(str(v1), str(v2))
-                    if paths and len(paths)>1:
-                        p = self.findMinimumDurationPath(str(v1), str(v2))
-                        # remove last edge in path p
-                        self.deleteLastEdgeInPath(p, edgesGraph)
-                        finished = False
+        table = PrettyTable()
+        table.field_names = bellman_columns
+        for line in bellman:
+            table.add_row(line)
+        print(table)
 
-        return edgesGraph
+
+
+
+
+
+
+
