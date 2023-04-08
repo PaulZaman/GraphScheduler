@@ -32,7 +32,7 @@ class Scheduler:
             line.pop(stateN)
         return m1
 
-    def detectCycle(self):
+    def detectCycle(self, onlyPredecessors=False):
         """
         Detects if the Graph has a cycle or not
         :return: bool
@@ -52,11 +52,11 @@ class Scheduler:
         # (no more states with no predecessors or no sucessors)
         for j in range(1, len(self.adjencyMatrix) + 1):
             # If the value table is empty return false (no cycle)
-            if (len(valTable) <= 1):
+            if (len(valTable) < 1):
                 return Steps, False
 
             # find the index of the states to delete
-            statesIndexToDelete = self.getStatesToDelete(valTable)
+            statesIndexToDelete = self.getStatesToDelete(valTable, onlyPredecessors=onlyPredecessors)
 
             # initialize the "vertices" list
             vertices = copy.deepcopy(Steps[j-1]["vertices"])
@@ -86,7 +86,7 @@ class Scheduler:
         # return if there are no more states to delete
         return Steps, True
 
-    def getStatesToDelete(self, valTable):
+    def getStatesToDelete(self, valTable, onlyPredecessors=False):
         """
         Gets the states that can be deleted from the value table
         :param valTable: value table to check
@@ -97,9 +97,10 @@ class Scheduler:
             # if the state has no predecessors
             if len(self.graph.getPredecessors(i, valTable=valTable))==0:
                 statesIndexToDelete.append(i)
-            # if the state has no sucessors
-            elif len(self.graph.getSuccessors(i, valTable=valTable))==0:
-                statesIndexToDelete.append(i)
+            if not onlyPredecessors:
+                # if the state has no sucessors
+                if len(self.graph.getSuccessors(i, valTable=valTable))==0:
+                    statesIndexToDelete.append(i)
 
         # order the states to delete in reverse order
         statesIndexToDelete = sorted(statesIndexToDelete, reverse=True)
@@ -110,39 +111,12 @@ class Scheduler:
         return statesIndexToDelete
 
     def getRanks(self):
-        if not self.canBeScheduled:
-            return None
-        # initialize the ranks list
-        ranks = [0 for i in range(len(self.adjencyMatrix))]
-
-        position = [
-            (0, 0),  # (statenumber, timeEnteredAtThisState)
-        ]
-        # loop until all states have a rank
-        while len(position) != 0:
-            # get the state number and the time entered at this state
-            stateNumber, timeEnteredAtThisState = position.pop(0)
-            # if the state has no predecessors, then it has a rank of 0
-            if len(self.graph.getPredecessors(stateNumber)) == 0:
-                ranks[stateNumber] = 0
-            # if the state has predecessors
-            else:
-                # get the maximum rank of the predecessors
-                maxRank = max([ranks[pred] for pred in self.graph.getPredecessors(stateNumber)])
-                # if the maximum rank is equal to the time entered at this state, then the state has a rank of maxRank + 1
-                if maxRank == timeEnteredAtThisState:
-                    ranks[stateNumber] = maxRank + 1
-                # else, the state has a rank of maxRank
-                else:
-                    ranks[stateNumber] = maxRank
-            # add the successors of the state to the position list
-            for succ in self.graph.getSuccessors(stateNumber):
-                position.append((succ, ranks[stateNumber]))
-
-        ret = []
-        for i in range(len(ranks)):
-            ret.append({"vertice": i, "rank": ranks[i]})
-        return ret
+        cycleSteps = self.detectCycle(onlyPredecessors=True)[0]
+        ranks = []
+        for i in range(len(cycleSteps)):
+            for state in cycleSteps[i]["deletedSteps"]:
+                ranks.append({"vertice": state, "rank": i-1})
+        return ranks
 
     def getSchedule(self):
         if not self.canBeScheduled:
