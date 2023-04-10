@@ -175,10 +175,11 @@ class Scheduler:
         # fill the totalFloats list
         for i in range(len(vertices)):
             totalFloats.append(latestDates[i] - earliestDates[i])
-        
+
         # fill the freeFloats list
         for i in range(len(vertices)):
             # if the vertice has no successors, then the free float is 0
+            # TODO: FREE FLOATS
             if len(successors[i]) == 0:
                 freeFloats.append(0)
             else:
@@ -186,7 +187,7 @@ class Scheduler:
                 succs = successors[i]
                 ## get the earliest date of the successors
                 earliestDateOfSuccs = min([earliestDates[vertices.index(succ)] for succ in succs])
-                freeFloats.append(earliestDateOfSuccs - earliestDates[i])
+                freeFloats.append(earliestDateOfSuccs - earliestDates[i]- durations[i])
 
 
 
@@ -271,19 +272,6 @@ class Scheduler:
 
         return earliestDatesDict, latestDatesDict, floats, criticalPath
 
-    def displayArrayOfDicts(self, array):
-        import prettytable as pt
-        table = pt.PrettyTable()
-        headers = array[0].keys()
-        table.field_names = headers
-        for i in range(len(array)):
-            row = []
-            for header in headers:
-                row.append(array[i][header])
-            table.add_row(row)
-
-        print(table)
-
     def bellman(self, verticeA):
         """
         This function implements the Bellman-Ford algorithm to find the shortest path from a vertice to all other vertices.
@@ -331,11 +319,4 @@ class Scheduler:
         for line in bellman:
             table.add_row(line)
         print(table)
-
-
-
-
-
-
-
 

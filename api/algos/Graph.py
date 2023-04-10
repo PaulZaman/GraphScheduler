@@ -48,6 +48,8 @@ class Graph:
             if not found and line["vertice"] != "0" and line["vertice"] != str(len(constraintTable)-1):
                 constraintTable[-1]["constraints"].append(line["vertice"])
 
+
+
         return constraintTable
 
     def getVertices(self):
@@ -86,17 +88,17 @@ class Graph:
         Gets the edges from the constraint table
         :return:  graph as an array of dicts like this {'from': '0', 'to': '1', weight: '1'}
         """
-        graph = []
+        edges = []
 
         # add the vertice link to the scheduling graph
         for line in self.constraintTable:
             for constraint in line["constraints"]:
-                graph.append({"from":constraint, "to":line["vertice"], "weight":self.getDurationOfVertice(constraint)})
+                edges.append({"from":constraint, "to":line["vertice"], "weight":self.getDurationOfVertice(constraint)})
 
         # order the graph in the order of the from vertice, starting with 0
-        graph = sorted(graph, key=lambda k: k["from"])
+        edges = sorted(edges, key=lambda k: k["from"])
 
-        return graph
+        return edges
 
     #### Vertice functions ####
 
