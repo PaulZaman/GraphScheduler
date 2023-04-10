@@ -20,9 +20,9 @@ function TextComponent({ textArr }) {
         <div className="w-full flex justify-center items-center h-auto bg-OxforfBlue">
           <div className="bg-white w-full rounded-lg p-4 shadow-md">
             <textarea
+              readonly
               value={text}
-              onChange={handleTextChange}
-              className="block w-full h-96 p-2 text-2xl text-black rounded-lg border border-BatteryChargedBlue focus:outline-none focus:ring focus:ring-BatteryChargedBlue"
+              className="resize-none block w-full h-96 p-2 text-2xl text-black rounded-lg border border-BatteryChargedBlue focus:outline-none focus:ring focus:ring-BatteryChargedBlue"
             />
           </div>
         </div>
