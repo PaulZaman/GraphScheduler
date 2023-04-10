@@ -5,4 +5,4 @@
 from settings import *
 from Graph import Graph
 
-g = Graph("table2.txt")
+g = Graph("table6.txt")

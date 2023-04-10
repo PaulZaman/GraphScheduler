@@ -3,10 +3,6 @@ import { useState, useEffect } from "react";
 function TextComponent({ textArr }) {
   const [text, setText] = useState(textArr.join("\n"));
 
-  const handleTextChange = (event) => {
-    setText(event.target.value);
-  };
-
   useEffect(() => {
     setText(textArr.join("\n"));
   }, [textArr]);
@@ -20,7 +16,7 @@ function TextComponent({ textArr }) {
         <div className="w-full flex justify-center items-center h-auto bg-OxforfBlue">
           <div className="bg-white w-full rounded-lg p-4 shadow-md">
             <textarea
-              readonly
+              readOnly
               value={text}
               className="resize-none block w-full h-96 p-2 text-2xl text-black rounded-lg border border-BatteryChargedBlue focus:outline-none focus:ring focus:ring-BatteryChargedBlue"
             />

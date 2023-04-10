@@ -26,8 +26,11 @@ function ScheduleTable({ schedule, title }) {
                 <td className="px-4 py-2 text-lg border text-center border-BatteryChargedBlue bg-BatteryChargedBlue text-white w-52">
                   {row.header}
                 </td>
-                {schedule[row.header].map((item) => (
-                  <td className="px-4 py-2 text-lg border text-center border-BatteryChargedBlue text-white w-auto">
+                {schedule[row.header].map((item, index) => (
+                  <td
+                    key={index}
+                    className="px-4 py-2 text-lg border text-center border-BatteryChargedBlue text-white w-auto"
+                  >
                     {Array.isArray(item) ? item.join(", ") : item}
                   </td>
                 ))}

@@ -5,15 +5,9 @@ import { drag } from "d3-drag";
 function Graph({ edges, endnode, criticalPath = null }) {
   const svgRef = useRef();
   const key = JSON.stringify(edges);
-  const criticalPathEdges = [];
-
-  if (criticalPath) {
-    for (let i = 0; i < criticalPath.length - 1; i++) {
-      criticalPathEdges.push({
-        from: criticalPath[i],
-        to: criticalPath[i + 1],
-      });
-    }
+  const [criticalPathEdges, setCriticalPathEdges] = useState(criticalPath);
+  if (!criticalPathEdges) {
+    setCriticalPathEdges([]);
   }
 
   useEffect(() => {

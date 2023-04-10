@@ -1,17 +1,11 @@
 import Graph from "./Graph";
 import ScheduleTable from "../Tables/ScheduleTable";
 import BasicTable from "../Tables/SingleEntryTable";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 function Scheduled({ setScheduled, content }) {
   let canBeScheduled = !content.containsCycles && !content.negativeEdges;
-  // go back to tests if content changes
-  useEffect(() => {
-    canBeScheduled = !content.containsCycles && !content.negativeEdges;
-    if (!canBeScheduled) setScheduled(false);
-  }, [content]);
 
-  console.log(content);
   return (
     <>
       {!canBeScheduled ? (
@@ -45,7 +39,7 @@ function Scheduled({ setScheduled, content }) {
                 content.constraintTable[content.constraintTable.length - 1]
                   .vertice
               }
-              criticalPath={content.criticalPath}
+              criticalPath={content.criticalEdges}
             />
           </div>
 
@@ -69,7 +63,7 @@ function Scheduled({ setScheduled, content }) {
               Critical Path
             </div>
             <div className="text-bold text-3xl text-center w-full mt-10">
-              {content.criticalPath.join(" -> ")}
+              <pre>{content.criticalPaths}</pre>
             </div>
           </div>
         </div>

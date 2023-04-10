@@ -1,7 +1,6 @@
 ## This file contains the API for the project
 
 
-
 # import modules
 from flask import Flask, jsonify
 from flask_cors import CORS
@@ -49,7 +48,8 @@ def getFile(name):
             "lines":g.lines,
             "negativeEdges": g.containsNegativeEdges,
             "ranks": g.scheduler.ranks,
-            "criticalPath": g.scheduler.criticalPath,
+            "criticalPaths": g.scheduler.criticalPathString,
+            "criticalEdges": g.scheduler.criticalEdges,
             "earliestDates": g.scheduler.earliestDates,
             "latestDates": g.scheduler.latestDates,
             "floats": g.scheduler.floats,

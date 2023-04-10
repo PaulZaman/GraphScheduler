@@ -13,10 +13,13 @@ class Scheduler:
         self.latestDates = None
         self.floats = None
         self.criticalPath = None
+        self.criticalPathString = None
+        self.criticalEdges = None
         self.canBeScheduled = not (self.containsCycles or self.containsNegativeEdges)
         if self.canBeScheduled:
             self.ranks = self.getRanks()
-            self.earliestDates, self.latestDates, self.floats, self.criticalPath = self.getSchedule()
+            self.earliestDates, self.latestDates, self.floats = self.getSchedule()
+            self.criticalPathString, self.criticalEdges = self.getCriticalPath()
             #self.bellman('0')
 
     def removeStateFromMatrix(self, m, stateN):
@@ -270,7 +273,49 @@ class Scheduler:
         print("Critical Path:")
         print(criticalPath)"""
 
-        return earliestDatesDict, latestDatesDict, floats, criticalPath
+        return earliestDatesDict, latestDatesDict, floats
+
+    def getCriticalPath(self):
+        """
+        This function calculates the critical path of the project.
+        :return: a list with the critical path
+        """
+        # get all paths from the start to the end
+        paths = self.graph.getAllPaths(0, len(self.graph.getVertices())-1)
+
+        # find the path with the smallest duration
+        criticalPaths = [copy.deepcopy(paths[0])]
+        for path in paths:
+            if self.graph.getDurationOfPath(path) > self.graph.getDurationOfPath(criticalPaths[0]):
+                criticalPaths[0] = path
+
+        # find if there are other paths with the same duration
+        for path in paths:
+            if self.graph.getDurationOfPath(path) == self.graph.getDurationOfPath(criticalPaths[0]):
+                if path != criticalPaths[0]:
+                    criticalPaths.append(path)
+
+        # display
+        """ print("Critical Path:")
+        for path in criticalPaths:
+            print(path)
+            print("Duration: " + str(self.graph.getDurationOfPath(path)))"""
+
+        # create a string to display the critical paths
+        criticalPathsString = ""
+        for path in criticalPaths:
+            criticalPathsString += "\n"
+            for vertice in path:
+                criticalPathsString += str(vertice) + " -> "
+            criticalPathsString = criticalPathsString[:-4]
+
+        # get a list of all edges in the critical path
+        criticalEdges = []
+        for path in criticalPaths:
+            for i in range(len(path)-1):
+                criticalEdges.append({"from":path[i], "to":path[i+1]})
+
+        return criticalPathsString, criticalEdges
 
     def bellman(self, verticeA):
         """

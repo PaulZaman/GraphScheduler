@@ -82,9 +82,6 @@ class ExecutionTraces:
         file.write("Contains Negative Edges: " + str(self.graph.scheduler.containsNegativeEdges))
         file.write("\n\n")
 
-
-
-
     ## general table functions
     def verticalTableFromArrayOfDict(self, array, file):
         table = VeryPrettyTable()
